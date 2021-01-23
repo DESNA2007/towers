@@ -4,63 +4,77 @@ const Bodies = Matter.Bodies;
 const Constraint = Matter.Constraint;
 
 var engine, world;
-var ground1;
-var ball, heimg;
-var slingshot;
-
-function preload()
-{
- heimg = loadImage("polygon.png");
+var holder,ball,ground;
+var stand1,stand2;
+var ball;
+var slingShot;
+var polygonimg;
+function preload(){
+  polygonimg=loadImage("polygon.png");
 }
-
 function setup() {
   createCanvas(900,400);
   engine = Engine.create();
   world = engine.world;
-
-  ground1 = new Ground(width/2-100, height/2+150, 450, 20);
+  Engine.run(engine);
+  ground = new Ground();
+  stand1 = new Stand(390,300,250,10);
+  stand2 = new Stand(700,200,200,10);
  
-
-  ball = Bodies.circle(50, 200, 10);
-  World.add(world, ball);
-
-  slingshot = new SlingShot(this.ball, {x: 100, y: 200});
-
-  block1 = new box(280,275,30,40);  
-  block2 = new box(310,275,30,40);
-  block3 = new box(340,275,30,40);
-  block4 = new box(370,275,30,40);
-  block5 = new box(400,275,30,40);
-  block6 = new box(430,275,30,40);
-  block7 = new box(460,275,30,40);
-  block8 = new box(490,275,30,40);
  
-  block9 = new box(310,235,30,40);
-  block10 = new box(340,235,30,40);
-  block11 = new box(370,235,30,40);
-  block12 = new box(400,235,30,40);
-  block13 = new box(430,235,30,40);
-  block14 = new box(460,235,30,40);
+  block1 = new Block(300,275,30,40);
+  block2 = new Block(330,275,30,40);
+  block3 = new Block(360,275,30,40);
+  block4 = new Block(390,275,30,40);
+  block5 = new Block(420,275,30,40);
+  block6 = new Block(450,275,30,40);
+  block7 = new Block(480,275,30,40);
 
-  block15 = new box(340,195,30,40);
-  block16 = new box(370,195,30,40);
-  block17 = new box(400,195,30,40);
-  block18 = new box(430,195,30,40);
- 
-  block19 = new box(370,155,30,40);
-  block20 = new box(400,155,30,40);
+  block8 = new Block(330,235,30,40);
+  block9 = new Block(360,235,30,40);
+  block10 = new Block(390,235,30,40);
+  block11 = new Block(420,235,30,40);
+  block12 = new Block(450,235,30,40);
   
-  block21 = new box(385,115,30,40);
+  block13 = new Block(360,195,30,40);
+  block14 = new Block(390,195,30,40);
+  block15 = new Block(420,195,30,40);
+ 
+  block16 = new Block(390,155,30,40);
+
+  
+  blocks1 = new Block(640,175,30,40);
+  blocks2 = new Block(670,175,30,40);
+  blocks3 = new Block(700,175,30,40);
+  blocks4 = new Block(730,175,30,40);
+  blocks5 = new Block(760,175,30,40);
+ 
+  blocks6 = new Block(670,135,30,40);
+  blocks7 = new Block(700,135,30,40);
+  blocks8 = new Block(730,135,30,40);
+
+  blocks9 = new Block(700,95,30,40);
+
+ 
+  ball = Bodies.circle(50,200,20);
+  World.add(world,ball);
+
+  slingShot = new Slingshot(this.ball,{x:100,y:200});
 
 }
-
 function draw() {
-  background(57,43,44);  
-  Engine.update(engine);
-  drawSprites();
-  ground1.display();
+  background("maroon"); 
+ 
+  textSize(10);
+  fill("white");
+  text("you can do it",10,10);
 
-  fill("red");
+  ground.display();
+  stand1.display();
+  stand2.display();
+  strokeWeight(2);
+  stroke(15);
+  fill("skyblue");
   block1.display();
   block2.display();
   block3.display();
@@ -68,42 +82,39 @@ function draw() {
   block5.display();
   block6.display();
   block7.display();
+  fill("pink");
   block8.display();
-  stroke(15)
-  fill("yellow")
   block9.display();
   block10.display();
   block11.display();
   block12.display();
+  fill("turquoise");
   block13.display();
   block14.display();
- stroke(15)
- fill("grey")
   block15.display();
+  fill("grey");
   block16.display();
-  block17.display();
-  block18.display();
-    stroke(15)
-    fill("pink")
-  block19.display();
-  block20.display();
- stroke(15)
- fill("cyan")
-  block21.display();
+  fill("skyblue");
+  blocks1.display();
+  blocks2.display();
+  blocks3.display();
+  blocks4.display();
+  blocks5.display();
+  fill("cyan");
+  blocks6.display();
+  blocks7.display();
+  blocks8.display();
+  fill("pink")
+  blocks9.display();
+  fill("gold");
+  imageMode(CENTER)
+  image(polygonimg ,ball.position.x,ball.position.y,40,40);
 
- fill("white")
-  text("hit it think of it as your enemy you can do it!!!",10,10)
-  slingshot.display();
-
-  imageMode(CENTER);
-  image(heimg, ball.position.x, ball.position.y, 40, 40);
-
+  slingShot.display();
 }
-
 function mouseDragged(){
-      Matter.Body.setPosition(this.ball, {x: mouseX , y: mouseY});
+  Matter.Body.setPosition(this.ball,{x:mouseX,y:mouseY});
 }
-
 function mouseReleased(){
-    slingshot.fly(); 
-  }
+  slingShot.fly();
+}
